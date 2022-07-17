@@ -19,6 +19,9 @@ app.use(cors());
 app.get('/', (req, res) => res.send('APP IS RUNNING.. Please?'));
 app.use('/user', userRoutes);
 
+//ERROR handling
+process.on('uncaughtException', (err) => console.log({ err }));
+
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
 
