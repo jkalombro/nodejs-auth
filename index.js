@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 //ROUTES
-app.get('/', (req, res) => res.send('APP IS RUNNING..'));
+app.get('/', (req, res) => res.send('APP IS RUNNING.. Please?'));
 app.use('/user', userRoutes);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
