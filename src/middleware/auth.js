@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import Return from '../utils/Return.js';
 
 const auth = async (req, res, next) => {
     try {
@@ -8,17 +9,18 @@ const auth = async (req, res, next) => {
         let decodedData;
 
         if (token && isCustomAuth) {
-            decodedData = jwt.verify(token, 'test');
+            decodedData = jwt.verify(token, process.env.JWT_KEY);
             req.userId = decodedData?.id;
         } else {
             decodedData = jwt.decode(token);
             req.userId = decodedData?.sub;
         }
 
+        if (!req.userId) return Return.unauthorized(res);
+
         next();
     } catch (err) {
-        console.log({ err });
-        res.status(500).json({ message: 'Something went wrong.' });
+        Return.error500(res, err.message);
     }
 };
 
